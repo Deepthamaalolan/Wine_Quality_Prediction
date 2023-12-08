@@ -64,7 +64,6 @@ ENV PATH $SPARK_HOME/bin:$PATH
 
 # Copy source code
 COPY /src /code/src
-COPY core-site.xml /opt/spark/conf/
 
 WORKDIR /code/
 
