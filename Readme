@@ -1,0 +1,78 @@
+PROGRAMMING ASSIGNMENT 2
+CS 643851: Cloud Computing
+Name : Deeptha Theyyar Maalolan
+NJIT ID : 31609231
+UCID : dt375
+Email : dt375@njit.edu
+Phone : +1 862-372-7241
+Wine Quality Prediction Using Spark
+
+Introduction:
+This README guides you through the process of setting up the AWS environment and
+executing a wine quality prediction pipeline utilizing parallel machine learning on four EC2
+instances. The project leverages Amazon Web Services (AWS) technologies, primarily Apache
+Spark, to achieve parallelism. Key AWS services involved include EC2, S3, and Docker. Below
+are step-by-step instructions to get started with the wine quality prediction project.
+Steps to access AWS Academy:
+1. Navigate to the AWS Academy course and sign up using your NJIT email.
+2. If you don't have an Amazon Web Services (AWS) account, create one using the links
+provided in the invitation.
+How to start your AWS environment:
+1. Log in to your AWS Academy and click on “Modules”.
+2. Select “Launch AWS Academy Learner Lab”.
+3. Start the Lab by clicking the corresponding button. Confirm that the lab status displays a
+green circle, indicating its active status.
+4. In the “AWS Details” section, make sure to copy the AWS access key, secret key, and
+session token. Add this information to your ~/.aws/credentials file. Additionally,
+download the PEM file provided under the “SSH key” section. This PEM file will be
+necessary for authentication when accessing EC2 instances via the terminal.
+Setting Up EMR and EC2 Instances:
+1. Create a New Cluster:
+a. Click the "Create cluster" button.
+b. Configure your cluster:
+i. Software Configuration: Choose the applications and frameworks you
+want to install (e.g., Hadoop, Spark).
+ii. Hardware Configuration: Specify the number and type of instances for
+master and core nodes. Set the instance count for tasks to four.
+2. Configure Cluster Details:
+a. Provide a name for your cluster.
+b. Configure cluster scaling and provisioning (1 - core and 4 -tasks)
+c. Choose the EC2 key pair for SSH access. Select “vockey” as the Key-Pair value.
+d. Optionally, configure additional options like logging and debugging.
+3. Configure EC2 roles EMR_EC2_DefaultRole and EMR_AutoScaling_DefaultRole
+
+
+
+Training a Machine Learning Model in a Spark Cluster with Four EC2
+Instances Concurrently
+Cluster Job Submission:
+● Once the Spark cluster is prepared and ready to accept jobs, you have the option
+to add steps using the step button or submit them manually.
+Manual Job Submission:
+● To manually submit jobs, establish an SSH connection to the cluster's Master
+node using the following command:
+I have uploaded the training dataset (TrainingDataset.csv) and validation dataset
+(ValidationDataset.csv) to Amazon S3, making them readily accessible for model training.
+Following successful training, the resultant model will be saved back to S3.
+I am transferring the training code to the master node and initiating the model training using
+spark-submit. The output of the training process will be stored in output.txt for further analysis
+and validation.
+Utilizing the trained model saved in Amazon S3, I am now conducting predictions on new data.
+Prediction Results Without Docker:
+Test Accuracy of wine prediction model = 0.96875
+Weighted f1 score of wine prediction model = 0.954190
+Now I am creating a Docker Image:
+● docker build -t deeps2201/wine_quality_prediction_aws:latest .
+● docker push deeps2201/wine_quality_prediction_aws:latest
+● sudo systemctl start docker
+● sudo systemctl enable docker
+● sudo systemctl enable docker
+● sudo systemctl status docker
+● sudo docker pull deeps2201/wine_quality_prediction:latest
+● sudo docker run deeps2201/wine_quality_prediction:latest
+Docker Image : Image Layer Details - deeps2201/wine_quality_prediction_123:final | Docker
+Hub
+Github : https://github.com/Deepthamaalolan/Wine_Quality_Prediction
+
+Accuracy : 0.967
+F1 Score : 0.954
